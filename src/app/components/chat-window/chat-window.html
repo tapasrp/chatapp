@@ -1,0 +1,61 @@
+
+<div class="chat-wrapper mat-elevation">
+	<header class="chat-header">
+		<div class="title">
+			<svg class="chat-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden>
+				<path d="M21 6.5a2.5 2.5 0 0 0-2.5-2.5H5.5A2.5 2.5 0 0 0 3 6.5v7A2.5 2.5 0 0 0 5.5 16H9v3.5L14.5 16h2A2.5 2.5 0 0 0 19 13.5v-7z" fill="currentColor" />
+			</svg>
+			<div>
+				<div class="main-title">Chat</div>
+				<div class="subtitle">conversation</div>
+			</div>
+		</div>
+		<div class="actions" aria-hidden>
+			<button class="icon-btn" title="Clear" (click)="messages = []">
+				<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+			</button>
+		</div>
+	</header>
+
+	<div #messagesContainer class="messages" aria-live="polite">
+		@if (messages.length === 0) {
+			<div class="empty">No messages yet. Say hello 👋</div>
+		}
+
+		@for (m of messages; track m.content) {
+			<div class="message-wrap" [ngClass]="{ user: m.role === 'user', assistant: m.role === 'assistant' }">
+				<div class="avatar" aria-hidden>
+					@if (m.role === 'user') {
+						<span>U</span>
+					} @else {
+						<span>A</span>
+					}
+				</div>
+				<div class="message">
+					<div class="bubble">{{ m.content }}</div>
+				</div>
+			</div>
+		}
+	</div>
+
+	<form class="composer" (submit)="$event.preventDefault(); send();">
+		<div class="input-row">
+			<div class="input-wrapper">
+				<input
+					type="text"
+					placeholder=" "
+					[(ngModel)]="messageText"
+					name="message"
+					aria-label="Message"
+				/>
+				<label class="floating-label">Type a message…</label>
+			</div>
+
+			<button type="submit" class="send" aria-label="Send message">
+				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
+					<path d="M2 21l21-9L2 3v7l15 2-15 2v7z" fill="currentColor"/>
+				</svg>
+			</button>
+		</div>
+	</form>
+</div>

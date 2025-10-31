@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:chatapp": "node dist/chatapp/server/server.mjs"
+    "serve:ssr:chatapp": "node dist/chatapp/server/server.mjs",
+    "serve:ssr:config": "RUNTIME_CONFIG_PATH=./config.json node dist/chatapp/server/server.mjs"
   },
   "prettier": {
     "printWidth": 100,
